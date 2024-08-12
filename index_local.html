@@ -266,15 +266,15 @@ __      __   _  __   ____  __
 	function runBash()
 	{
 		// cmd, cwd, args and env are replaced by the Github actions workflow.
-		var cmd = CMD;
-		var args = ARGS;
-		var env = ENV;
-		var cwd = CWD;
+		// var cmd = CMD;
+		// var args = ARGS;
+		// var env = ENV;
+		// var cwd = CWD;
 		// Reasonable defaults for local deployments
-		// var cmd = "/bin/bash";
-		// var args = ["--login"];
-		// var env = ["HOME=/home/user", "TERM=xterm", "USER=user", "SHELL=/bin/bash", "EDITOR=vim", "LANG=en_US.UTF-8", "LC_ALL=C"];
-		// var cwd = "/home/user";
+		 var cmd = "/bin/bash";
+		 var args = ["--login"];
+		 var env = ["HOME=/home/user", "TERM=xterm", "USER=user", "SHELL=/bin/bash", "EDITOR=vim", "LANG=en_US.UTF-8", "LC_ALL=C"];
+		 var cwd = "/home/user";
 		const structure = {
 			cmd: cmd,
 			args: args,
@@ -337,24 +337,21 @@ __      __   _  __   ____  __
 			printOnTerm.printError(printOnTerm.getErrorMessage(err));
 		}
 		// The device url and type are replaced by Github Actions.
-		CheerpXApp.create({
-			devices: [
-				{
-					type: DEVICE_TYPE,
-					url: IMAGE_URL,
-					name: "block1"
-				}], mounts: 
+		CheerpXApp.create({devices:
 				[
-					{ type: "ext2", dev: "block1", path: "/" }, 
-					{ type: "cheerpOS", dev: "/app", path: "/app" }, 
-					{ type: "cheerpOS", dev: "/str", path: "/data" }, 
-					{ type: "devs", dev: "", path: "/dev" }, 
-					{ type: "proc", dev: "", path: "/proc" },
-					{ type: "cheerpOS", dev:"/files", path:"/mnt"}
+					{type:"bytes",url:"debian_large_20230522_5044875331.ext2",name:"block1"}
 				],
-			networkInterface: networkInterface
-		}).then(runTest, failCallback);
-		console.log(CheerpXApp);
+			mounts:
+				[
+					{type:"ext2",dev:"block1",path:"/"},
+					{type:"cheerpOS",dev:"/app",path:"/app"},
+					{type:"cheerpOS",dev:"/str",path:"/data"},
+					{type:"devs",dev:"",path:"/dev"},
+					{type:"proc",dev:"",path:"/proc"},
+					{type:"cheerpOS",dev:"/files",path:"/mnt"}
+				], 
+			networkInterface: networkInterface}).then(runTest, failCallback);
+			console.log(CheerpXApp);
 	}
 	function initialMessage()
 	{
@@ -378,3 +375,4 @@ __      __   _  __   ____  __
     </script>
   </body>
 </html>
+
